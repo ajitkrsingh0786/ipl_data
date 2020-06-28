@@ -1,4 +1,4 @@
-console.log("hello Ajit");
+ 
 function fetchAndVisualizeData() {
     fetch("./data.json")
       .then(r => r.json())
@@ -11,6 +11,10 @@ function fetchAndVisualizeData() {
       fetch("./data2.json")
       .then(r => r.json())
       .then(visualizeData2);
+
+      fetch("./data3.json")
+      .then(r => r.json())
+      .then(visualizeData3);
   }
 
    
@@ -32,6 +36,12 @@ function fetchAndVisualizeData() {
 
   function visualizeData1(data) {
     visualizeEconomicalBowlersOf2015(data.economicalBowlersOf2015);
+     
+    return;
+  }
+
+  function visualizeData3(data) {
+    visualizeMatchesWonByEachTeamPerVenu(data.matchesWonByEachTeamPerVenu,data.all_venue);
      
     return;
   }
@@ -104,7 +114,7 @@ function  visualizeNumberOfMatchesWonByEachTeam(numberOfMatchesWonByEachTeam,tot
         seriesData.push(subSeriesData);
     
   }
-console.log(seriesData);
+//console.log(seriesData);
 
 
   Highcharts.chart("matches-played-per-year3", {
@@ -219,7 +229,70 @@ console.log(seriesData);
   }
 
 
-   
+ function visualizeMatchesWonByEachTeamPerVenu(matchesWonByEachTeamPerVenu,all_venue){
+    
+     //console.log(all_venue);
+    // console.log(matchesWonByEachTeamPerVenu);
+
+    let venues=[];
+    for(let a in all_venue ){
+        venues.push(a);
+    }
+    //console.log(venues);
+
+   const series=[];
+ 
+      for(let team in matchesWonByEachTeamPerVenu){
+          let data=[];
+          let name=team;
+          //console.log(22);
+          for(let i=0;i<venues.length;i++){
+            //console.log(venues[i]);
+            //console.log(matchesWonByEachTeamPerVenu[team][venues[i]])
+            if(matchesWonByEachTeamPerVenu[team][venues[i]]){
+              data.push(matchesWonByEachTeamPerVenu[team][venues[i]]);
+            }
+          else{
+            data.push(0);
+          }
+        }
+
+          series.push({
+            name:name,
+            data:data
+          });
+      }
+
+      // console.log(series);
+
+  Highcharts.chart('matches-won-by-each-team-per-venue', {
+    chart: {
+        type: 'bar'
+    },
+    title: {
+        text: '5.Matches won by each team per venu'
+    },
+    xAxis: {
+        categories: venues
+    },
+    yAxis: {
+        min: 0,
+        title: {
+            text: 'Matches won vs stadium'
+        }
+    },
+    legend: {
+        reversed: true
+    },
+    plotOptions: {
+        series: {
+            stacking: 'normal'
+        }
+    },
+    series: series
+});
+
+ }
    
    
  

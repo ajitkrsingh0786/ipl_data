@@ -4,7 +4,7 @@ const matchesPlayedPerYear = require('./ipl/matchesPlayedPerYear');
 const extraRunsByEachTeamIn2016 = require('./ipl/extraRunsByEachTeamIn2016');
 const economicalBowlers = require('./ipl/economicalBowlers');
 const numberOfMatchesWonByEachTeam = require('./ipl/numberOfMatchesWonByEachTeam');
-
+const matchesWonByEachTeamPerVenu=require('./ipl/matchesWonByEachTeamPerVenu');
 
 
 const MATCHES_FILE_PATH = "./csv_data/matches.csv";
@@ -12,6 +12,7 @@ const DELIVERIES_FILE_PATH = "./csv_data/deliveries.csv";
 const JSON_OUTPUT_FILE_PATH = "./public/data.json";
 const JSON_OUTPUT_FILE_PATH1 = "./public/data1.json";
 const JSON_OUTPUT_FILE_PATH2 = "./public/data2.json";
+const JSON_OUTPUT_FILE_PATH3 = "./public/data3.json";
 
 function main(){
     csv()
@@ -60,10 +61,17 @@ function main(){
            //console.log(result);
           saveEconomicalBowlersOf2015(result);
       });  
-        
+
     });
 
-
+    csv()
+    .fromFile(MATCHES_FILE_PATH)
+    .then(matches => {
+        //  console.log(matches);
+        let result = matchesWonByEachTeamPerVenu(matches);
+        //console.log(result);
+        saveMatchesWonByEachTeamPerVenu(result);
+    });
 
 }
 
@@ -96,18 +104,6 @@ function saveMatchesPlayedPerYear(result) {
   }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
   function saveExtraRunsByEachTeamIn2016(result) {
      
      
@@ -135,5 +131,27 @@ function saveMatchesPlayedPerYear(result) {
       }
     });
   }
+
+
+
+  function saveMatchesWonByEachTeamPerVenu(result){
+    const jsonData = {
+      matchesWonByEachTeamPerVenu: result[0],
+      all_venue:result[1]
+    };
+    const jsonString = JSON.stringify(jsonData);
+    fs.writeFile(JSON_OUTPUT_FILE_PATH3, jsonString, "utf8", err => {
+      if (err) {
+        console.error(err);
+      }
+    });
+
+  }
+
+
+
+
+
+
 
 main();
