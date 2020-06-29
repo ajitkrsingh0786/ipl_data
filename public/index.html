@@ -11,29 +11,41 @@
         IPL visualization
     </title>
     <script src="https://code.highcharts.com/highcharts.js"></script>
+
+    <style>
+        div.data {
+          border: 5px dashed black;
+          border-width: thin;
+           
+          text-align: center;
+          
+
+         
+        }
+        </style>
 </head>
 
 <body>
     <h1>IPL Dataset visualization</h1>
-     
-    <div id="matches-played-per-year" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+      
+    <div id="matches-played-per-year" style="min-width: 310px; height: 400px; margin: 0 auto" class="data"></div>
+    <script src="./app.js"></script>
+     <br>
+    <div id="number-of-matches-won-by-each-team-over-all-the-years-of-ipl" style="min-width: 310px; height: 400px; margin: 0 auto" class="data"></div>
     <script src="./app.js"></script>
 
-    <div id="matches-played-per-year3" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
-    <script src="./app.js"></script>
-
-
-    <div id="matches-played-per-year1" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
-    <script src="./app.js"></script>
-
-
-
-
-    <div id="matches-played-per-year2" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+     <br>
+    <div id="matches-played-per-year1" style="min-width: 310px; height: 400px; margin: 0 auto" class="data"></div>
     <script src="./app.js"></script>
 
 
-    <div id="matches-won-by-each-team-per-venue" style="min-width: 310px; height: 1000px; margin: 0 auto"></div>
+
+     <br>
+    <div id="matches-played-per-year2" style="min-width: 310px; height: 400px; margin: 0 auto" class="data"></div>
+    <script src="./app.js"></script>
+
+    <br>
+    <div id="matches-won-by-each-team-per-venue" style="min-width: 310px; height: 1000px; margin: 0 auto" class="data"></div>
     <script src="./app.js"></script>
  
 </body>

@@ -117,12 +117,12 @@ function  visualizeNumberOfMatchesWonByEachTeam(numberOfMatchesWonByEachTeam,tot
 //console.log(seriesData);
 
 
-  Highcharts.chart("matches-played-per-year3", {
+  Highcharts.chart("number-of-matches-won-by-each-team-over-all-the-years-of-ipl", {
     chart: {
         type: 'column'
     },
     title: {
-        text: 'Number of matches won by each team'
+        text: '2.Number of matches won by each team over all the years of ipl'
     },
     subtitle: {
         text: 'Number of matches won by each team'
