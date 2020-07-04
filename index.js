@@ -5,6 +5,9 @@ const extraRunsByEachTeamIn2016 = require('./ipl/extraRunsByEachTeamIn2016');
 const economicalBowlers = require('./ipl/economicalBowlers');
 const numberOfMatchesWonByEachTeam = require('./ipl/numberOfMatchesWonByEachTeam');
 const matchesWonByEachTeamPerVenu=require('./ipl/matchesWonByEachTeamPerVenu');
+const economy=require('./ipl/economy');
+
+
 
 
 const MATCHES_FILE_PATH = "./csv_data/matches.csv";
@@ -13,7 +16,8 @@ const JSON_OUTPUT_FILE_PATH = "./public/data.json";
 const JSON_OUTPUT_FILE_PATH1 = "./public/data1.json";
 const JSON_OUTPUT_FILE_PATH2 = "./public/data2.json";
 const JSON_OUTPUT_FILE_PATH3 = "./public/data3.json";
-
+const JSON_OUTPUT_FILE_PATH5 = "./public/data5.json";
+ 
 function main(){
     csv()
     .fromFile(MATCHES_FILE_PATH)
@@ -72,6 +76,19 @@ function main(){
         //console.log(result);
         saveMatchesWonByEachTeamPerVenu(result);
     });
+
+    csv()
+    .fromFile(MATCHES_FILE_PATH)
+    .then(matches => {
+      csv()
+      .fromFile(DELIVERIES_FILE_PATH)
+      .then(deliveries => {
+            
+          let result = economy(matches,deliveries);
+           console.log(result);
+          saveEconomy(result);
+      });  
+      });  
 
 }
 
@@ -149,9 +166,16 @@ function saveMatchesPlayedPerYear(result) {
   }
 
 
-
-
-
-
+  function saveEconomy(result) {
+    const jsonData = {
+      economy: result
+    };
+    const jsonString = JSON.stringify(jsonData);
+    fs.writeFile(JSON_OUTPUT_FILE_PATH5, jsonString, "utf8", err => {
+      if (err) {
+        console.error(err);
+      }
+    });
+  }
 
 main();

@@ -16,11 +16,7 @@
         div.data {
           border: 5px dashed black;
           border-width: thin;
-           
           text-align: center;
-          
-
-         
         }
         </style>
 </head>
@@ -28,6 +24,78 @@
 <body>
     <h1>IPL Dataset visualization</h1>
       
+    <div class="input">
+         <form action="/" onsubmit="return economy()">
+          <span>Enter year:</span>
+          <input type="number" min="2008" max="2019"  name="year" id="year">
+          <button value="submit">Submit</button>
+           
+         </form>
+    </div>
+      <script>
+           function economy(){
+              // console.log(document.getElementById("year").value);
+              var year= document.getElementById("year").value;
+               //console.log("AAAAAA");
+               fetch("./data5.json")
+                    .then(r => r.json())
+                    .then(visualizeData1);
+
+
+                    function visualizeData1(data) {
+                     // console.log("data");
+                      //console.log(data);
+                  visualizeEconomy(data.economy,year);
+                 // visualizeExtraRunsByEachTeamIn2016(data.extraRunsByEachTeamIn2016);
+                    
+                     } 
+               return false;
+           }
+
+                    function visualizeEconomy(economy,year){
+                       // console.log("sss  "+ economy+"year:"+year);
+                        //console.log(economy[year]);
+    const seriesData = [];
+    for (let economic in economy[year]) {
+      seriesData.push([economic, economy[year][economic]]);
+    }
+  
+    Highcharts.chart("matches-played-per-year22", {
+      chart: {
+        type: "column"
+      },
+      title: {
+        text: "List of  top 10 economical bowlers in "+year+ " season"
+      },
+      subtitle: {
+        text:
+          'Source: <a href="https://www.kaggle.com/nowke9/ipldata/data">IPL Dataset</a>'
+      },
+      xAxis: {
+        type: "category"
+      },
+      yAxis: {
+        min: 0,
+        title: {
+          text: "economy"
+        }
+      },
+      series: [
+        {
+          name: "Player",
+          data: seriesData
+        }
+      ]
+    });
+  }
+
+
+      </script>
+    
+    <br><br>
+      <div id="matches-played-per-year22" style="min-width: 310px; height: 400px; margin: 0 auto" class="data"></div>
+    <script src="./app.js"></script>
+    <br>
     <div id="matches-played-per-year" style="min-width: 310px; height: 400px; margin: 0 auto" class="data"></div>
     <script src="./app.js"></script>
      <br>
@@ -47,5 +115,11 @@
     <br>
     <div id="matches-won-by-each-team-per-venue" style="min-width: 310px; height: 1000px; margin: 0 auto" class="data"></div>
     <script src="./app.js"></script>
+
+
+
+
+
+
  
 </body>
